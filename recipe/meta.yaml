@@ -10,17 +10,18 @@ source:
   sha256: 358f1616db479b8272b74fb7d5f10f93dfc695a264137dd1959b50b50dcd6346
 
 build:
-  noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
+  skip: true  # [py<37]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
-    - python >=3.7
+    - python
     - pip
     - setuptools
+    - wheel
   run:
-    - python >=3.7
+    - python
     - azure-core <2.0.0,>=1.28.0
     - azure-storage-blob <13.0.0,>=12.19.0
     - isodate >=0.6.1
@@ -31,6 +32,10 @@ test:
     - azure
     - azure.storage
     - azure.storage.filedatalake
+  requires:
+    - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/storage/azure-storage-file-datalake
@@ -38,8 +43,12 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: This preview package for Python includes ADLS Gen2 specific API support made available in Storage SDK
+  description: This preview package for Python includes ADLS Gen2 specific API support made available in Storage SDK
   doc_url: https://aka.ms/azsdk-python-storage-filedatalake-ref
+  dev_url: https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/storage/azure-storage-file-datalake
 
 extra:
+  skip-lints:
+    - invalid_url
   recipe-maintainers:
     - dhirschfeld
