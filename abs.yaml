@@ -1,6 +1,2 @@
-channels:
-  - https://staging.continuum.io/prefect/fs/azure-core-feedstock/pr2/77f57eb
-  - https://staging.continuum.io/prefect/fs/azure-storage-blob-feedstock/pr1/c3232d4
-
 upload_channels:
   - sfe1ed40
