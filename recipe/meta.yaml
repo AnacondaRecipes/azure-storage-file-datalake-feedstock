@@ -1,32 +1,33 @@
 {% set name = "azure-storage-file-datalake" %}
-{% set version = "12.14.0" %}
+{% set version = "12.22.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 358f1616db479b8272b74fb7d5f10f93dfc695a264137dd1959b50b50dcd6346
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace("-", "_") }}-{{ version }}.tar.gz
+  sha256: 9aed0d35f3327baeeb11b1950b140f97b356cfd368fc2cd105c32c820c49af77
 
 build:
-  number: 1
-  skip: true  # [py<37]
+  number: 0
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
-    - python
     - pip
+    - python
     - setuptools
     - wheel
   run:
     - python
-    - azure-core <2.0.0,>=1.28.0
-    - azure-storage-blob <13.0.0,>=12.19.0
+    - azure-core >=1.30.0
+    - azure-storage-blob >=12.27.0
+    - typing-extensions >=4.6.0
     - isodate >=0.6.1
-    - typing-extensions >=4.3.0
 
+# ModuleNotFoundError: No module named 'devtools_testutils'
 test:
   imports:
     - azure
